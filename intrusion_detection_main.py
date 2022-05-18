@@ -91,6 +91,20 @@ explainer = shap.TreeExplainer(model, data_kdd['X_train'], feature_perturbation 
 results_AE_SHAP['shap_train'] = explainer.shap_values(data_kdd['X_train'])
 results_AE_SHAP['shap_test'] = explainer.shap_values(data_kdd['X_test'])
 
+# Compute example explanation for a Probe attack - NB SHAP package requires us to wrap everything into a single object before plotting
+idx = data_kdd['Y_train'][data_kdd['Y_train']=='ipsweep'].index # get all locations where ipsweep attack occur (i.e., main attack class = Probe)
+
+class Object(object):
+    pass
+
+exp = Object
+exp.feature_names = data_kdd['feature_names']
+exp.base_values = explainer.expected_value
+exp.data = data_kdd['X_train'].loc[idx[0]]
+exp.values = results_AE_SHAP['shap_train'][idx[0]]
+
+shap.plots.waterfall(exp) # plot the explanation
+
 # scale data using Sklearn minmax scaler
 results_AE_SHAP['scaler'] = MinMaxScaler(feature_range=(-1,1))                                     
 results_AE_SHAP['shap_train_scaled'] = results_AE_SHAP['scaler'].fit_transform(results_AE_SHAP['shap_train'])  # scale the training set data
