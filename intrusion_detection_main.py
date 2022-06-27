@@ -73,7 +73,6 @@ results_model['performance_model_test_21'] = utf.compute_performance_stats(data_
 
 # SAVE DATA 
 pickle.dump(data_kdd, open("{}/data_nsl.pkl".format(save_loc), "wb")) 
-pickle.dump(results_model, open("{}/data_0.pkl".format(save_loc), "wb")) 
 pickle.dump(model, open("{}/model.pkl".format(save_loc), "wb"))
 
 # calculate how many new attacks the XGBoost model can identify, NB during deployment, we have no way of knowing these are new attacks
@@ -164,6 +163,7 @@ results_model['TPR_new_attacks'] = np.round(results_AE_SHAP['performance_new_att
 results_model['TPR_new_attacks_overall'] = np.round(results_AE_SHAP['performance_overall']['TP']/np.sum(data_kdd['Y_test_bin']) , 2)
 
 # SAVE DATA
+pickle.dump(results_model, open("{}/data_0.pkl".format(save_loc), "wb")) 
 pickle.dump([results_AE_SHAP, history_AE_SHAP], open("{}/data_1.pkl".format(save_loc), "wb")) 
 autoencoder_shap.full.save_weights('{}AE_shap_weights'.format(save_loc))
    
