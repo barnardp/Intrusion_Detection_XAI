@@ -1,5 +1,5 @@
 # Intrusion_Detection_XAI
-This repo contains the source code and experiments used in the papers:  
+This repo contains the source code and experiments discussed in the papers:  
 [1] "Robust Network Intrusion Detection through Explainable Artificial Intelligence (XAI)"  
 [2] "Don’t Just Explain, Enhance! Using Explainable Artificial Intelligence (XAI) to Automatically Improve Network Intrusion Detection"  
 
